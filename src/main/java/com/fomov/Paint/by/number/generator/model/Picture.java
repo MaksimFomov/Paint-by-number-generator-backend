@@ -5,29 +5,36 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "pictures")
 public class Picture {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @JoinColumn(name = "picture_name")
     private String pictureName;
+    @JoinColumn(name = "picture_image")
     private String pictureImage;
+    @JoinColumn(name = "active_size")
     private int activeSize;
+    @JoinColumn(name = "clean_picture")
     private boolean cleanPicture;
     @ManyToOne
-    private User userId;
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToOne
-    private Palette paletteId;
+    @JoinColumn(name = "palette_id")
+    private Palette palette;
 
     public Picture() {}
 
-    public Picture(int id, String pictureName, String pictureImage, int activeSize, boolean cleanPicture, User userId, Palette paletteId) {
+    public Picture(int id, String pictureName, String pictureImage, int activeSize, boolean cleanPicture, User user, Palette palette) {
         this.id = id;
         this.pictureName = pictureName;
         this.pictureImage = pictureImage;
         this.activeSize = activeSize;
         this.cleanPicture = cleanPicture;
-        this.userId = userId;
-        this.paletteId = paletteId;
+        this.user = user;
+        this.palette = palette;
     }
 
     public int getId() {
@@ -70,20 +77,20 @@ public class Picture {
         this.cleanPicture = cleanPicture;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Palette getPaletteId() {
-        return paletteId;
+    public Palette getPalette() {
+        return palette;
     }
 
-    public void setPaletteId(Palette paletteId) {
-        this.paletteId = paletteId;
+    public void setPalette(Palette palette) {
+        this.palette = palette;
     }
 
     @Override
@@ -91,11 +98,11 @@ public class Picture {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Picture picture = (Picture) o;
-        return id == picture.id && activeSize == picture.activeSize && cleanPicture == picture.cleanPicture && Objects.equals(pictureName, picture.pictureName) && Objects.equals(pictureImage, picture.pictureImage) && Objects.equals(userId, picture.userId) && Objects.equals(paletteId, picture.paletteId);
+        return id == picture.id && activeSize == picture.activeSize && cleanPicture == picture.cleanPicture && Objects.equals(pictureName, picture.pictureName) && Objects.equals(pictureImage, picture.pictureImage) && Objects.equals(user, picture.user) && Objects.equals(palette, picture.palette);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pictureName, pictureImage, activeSize, cleanPicture, userId, paletteId);
+        return Objects.hash(id, pictureName, pictureImage, activeSize, cleanPicture, user, palette);
     }
 }

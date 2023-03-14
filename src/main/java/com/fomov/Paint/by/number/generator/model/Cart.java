@@ -5,24 +5,27 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class ShoppingCart {
+@Table
+public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
-    private User userId;
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToOne
-    private Picture pictureId;
+    @JoinColumn(name = "picture_id")
+    private Picture picture;
     private int price;
     private int quantity;
     private int size;
 
-    public ShoppingCart() {}
+    public Cart() {}
 
-    public ShoppingCart(int id, User userId, Picture pictureId, int price, int quantity, int size) {
+    public Cart(int id, User user, Picture picture, int price, int quantity, int size) {
         this.id = id;
-        this.userId = userId;
-        this.pictureId = pictureId;
+        this.user = user;
+        this.picture = picture;
         this.price = price;
         this.quantity = quantity;
         this.size = size;
@@ -36,20 +39,20 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Picture getPictureId() {
-        return pictureId;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setPictureId(Picture pictureId) {
-        this.pictureId = pictureId;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public int getPrice() {
@@ -80,12 +83,12 @@ public class ShoppingCart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShoppingCart that = (ShoppingCart) o;
-        return id == that.id && price == that.price && quantity == that.quantity && size == that.size && Objects.equals(userId, that.userId) && Objects.equals(pictureId, that.pictureId);
+        Cart cart = (Cart) o;
+        return id == cart.id && price == cart.price && quantity == cart.quantity && size == cart.size && Objects.equals(user, cart.user) && Objects.equals(picture, cart.picture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, pictureId, price, quantity, size);
+        return Objects.hash(id, user, picture, price, quantity, size);
     }
 }

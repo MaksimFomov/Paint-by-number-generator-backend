@@ -5,22 +5,20 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String email;
     private String password;
-    @OneToOne
-    private Role roleId;
 
     public User() {}
 
-    public User(int id, String email, String password, Role roleId) {
+    public User(int id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.roleId = roleId;
     }
 
     public int getId() {
@@ -47,24 +45,16 @@ public class User {
         this.password = password;
     }
 
-    public Role getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roleId, user.roleId);
+        return id == user.id && Objects.equals(email, user.email) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, roleId);
+        return Objects.hash(id, email, password);
     }
 }

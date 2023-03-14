@@ -6,25 +6,29 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
-    private User userId;
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToOne
-    private Picture pictureId;
+    @JoinColumn(name = "picture_id")
+    private Picture picture;
     private int price;
     private int quantity;
     private int size;
+    @JoinColumn(name = "order_date")
     private Date orderDate;
 
     public Order() {}
 
-    public Order(int id, User userId, Picture pictureId, int price, int quantity, int size, Date orderDate) {
+    public Order(int id, User user, Picture picture, int price, int quantity, int size, Date orderDate) {
         this.id = id;
-        this.userId = userId;
-        this.pictureId = pictureId;
+        this.user = user;
+        this.picture = picture;
         this.price = price;
         this.quantity = quantity;
         this.size = size;
@@ -39,20 +43,20 @@ public class Order {
         this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Picture getPictureId() {
-        return pictureId;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setPictureId(Picture pictureId) {
-        this.pictureId = pictureId;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public int getPrice() {
@@ -92,11 +96,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id && price == order.price && quantity == order.quantity && size == order.size && Objects.equals(userId, order.userId) && Objects.equals(pictureId, order.pictureId) && Objects.equals(orderDate, order.orderDate);
+        return id == order.id && price == order.price && quantity == order.quantity && size == order.size && Objects.equals(user, order.user) && Objects.equals(picture, order.picture) && Objects.equals(orderDate, order.orderDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, pictureId, price, quantity, size, orderDate);
+        return Objects.hash(id, user, picture, price, quantity, size, orderDate);
     }
 }

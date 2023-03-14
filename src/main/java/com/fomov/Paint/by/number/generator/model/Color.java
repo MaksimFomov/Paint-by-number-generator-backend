@@ -1,24 +1,22 @@
 package com.fomov.Paint.by.number.generator.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-public class PaletteColor {
+@Table(name = "colors")
+public class Color {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int red;
     private int green;
     private int blue;
 
-    public PaletteColor() {}
+    public Color() {}
 
-    public PaletteColor(int id, int red, int green, int blue) {
+    public Color(int id, int red, int green, int blue) {
         this.id = id;
         this.red = red;
         this.green = green;
@@ -61,7 +59,7 @@ public class PaletteColor {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PaletteColor that = (PaletteColor) o;
+        Color that = (Color) o;
         return id == that.id && red == that.red && green == that.green && blue == that.blue;
     }
 

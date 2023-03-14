@@ -5,18 +5,20 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "palette")
 public class Palette {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToOne
-    private PaletteColor paletteColorId;
+    @JoinColumn(name = "color_id")
+    private Color color;
 
     public Palette() {}
 
-    public Palette(int id, PaletteColor paletteColorId) {
+    public Palette(int id, Color color) {
         this.id = id;
-        this.paletteColorId = paletteColorId;
+        this.color = color;
     }
 
     public int getId() {
@@ -27,12 +29,12 @@ public class Palette {
         this.id = id;
     }
 
-    public PaletteColor getPaletteColorId() {
-        return paletteColorId;
+    public Color getColor() {
+        return color;
     }
 
-    public void setPaletteColorId(PaletteColor paletteColorId) {
-        this.paletteColorId = paletteColorId;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
@@ -40,11 +42,11 @@ public class Palette {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Palette palette = (Palette) o;
-        return id == palette.id && Objects.equals(paletteColorId, palette.paletteColorId);
+        return id == palette.id && Objects.equals(color, palette.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, paletteColorId);
+        return Objects.hash(id, color);
     }
 }
