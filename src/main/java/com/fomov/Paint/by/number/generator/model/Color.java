@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "colors")
 public class Color {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int red;
     private int green;

@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "pictures")
 public class Picture {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @JoinColumn(name = "picture_name")
     private String pictureName;
